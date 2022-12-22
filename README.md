@@ -61,7 +61,26 @@ npm test
 ### Brightwheel Interview API endpoints
 
 - Devices
+
   - `POST /devices` List all devices
+    - body example:
+
+  ```json
+  {
+    "id": "36d5658a-6908-479e-887e-a949ec199272",
+    "readings": [
+      {
+        "timestamp": "2021-09-29T16:08:15+01:00",
+        "count": 2
+      },
+      {
+        "timestamp": "2021-09-29T16:09:15+01:00",
+        "count": 15
+      }
+    ]
+  }
+  ```
+
   - `GET /devices/:deviceId` Find a device
   - `GET /devices/:deviceId/cumulative` show the total reading for a device
   - `GET /devices/:deviceId/latest` show the latest read time for a device
@@ -96,4 +115,4 @@ Improvement
   and the cumulative read value in-memory on `POST /devices` . Like this we
   would always have those values pre-compute for all the subsequent request
   where we can hit the always hit the cache.
-- Dockerize the application to facilitate onboarding
+- Dockerize the application to facilitate smoother onboarding
