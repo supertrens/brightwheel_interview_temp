@@ -62,7 +62,7 @@ npm test
 
 - Devices
 
-  - `POST /devices` List all devices
+  - `POST /devices` Create/Update a device entry
     - body example:
 
   ```json
