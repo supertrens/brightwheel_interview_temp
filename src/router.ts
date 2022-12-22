@@ -14,7 +14,7 @@ deviceRouter.get("/:deviceId", getDevice);
 deviceRouter.get("/:deviceId/latest", getDeviceLatestReading);
 deviceRouter.get("/:deviceId/cumulative", getDeviceCumulativeReadingCount);
 
-// TODO: inspect the error to set proper message and status
+// TODO: inspect the error to set proper message and statusCode
 deviceRouter.use((err, _req, res, _next) => {
   res.status(500);
   res.json({ error: err });
