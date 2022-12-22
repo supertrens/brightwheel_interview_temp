@@ -23,13 +23,13 @@ describe("POST /v1/devices", () => {
       .set("Accept", "application/json");
 
     expect(res.headers["content-type"]).toMatch(/json/);
-    expect(res.status).toEqual(200);
+    expect(res.status).toBe(200);
     expect(res.body).toEqual({ data: testData });
   });
 });
 
 describe("GET /v1/devices/:deviceId", () => {
-  it("should send empty object when device not found", async () => {
+  it("should response gracefully when device is not in DB", async () => {
     const deviceId = "12346";
 
     const res = await supertest(app)
@@ -37,8 +37,8 @@ describe("GET /v1/devices/:deviceId", () => {
       .set("Accept", "application/json");
 
     expect(res.headers["content-type"]).toMatch(/json/);
-    expect(res.status).toEqual(200);
-    expect(res.body).toEqual({});
+    expect(res.status).toBe(404);
+    expect(res.body).toEqual({ data: { message: "Device not found" } });
   });
 
   it("should send device object when device is found", async () => {
@@ -54,7 +54,38 @@ describe("GET /v1/devices/:deviceId", () => {
       .set("Accept", "application/json");
 
     expect(res.headers["content-type"]).toMatch(/json/);
-    expect(res.status).toEqual(200);
+    expect(res.status).toBe(200);
     expect(res.body).toEqual({ data: testData });
+  });
+});
+
+describe("GET /v1/devices/:deviceId/latest", () => {
+  it("should response gracefully when device is not in DB", async () => {
+    const deviceId = "12346";
+
+    const res = await supertest(app)
+      .get(`/v1/devices/${deviceId}/latest`)
+      .set("Accept", "application/json");
+
+    expect(res.headers["content-type"]).toMatch(/json/);
+    expect(res.status).toBe(404);
+    expect(res.body).toEqual({ data: { message: "Device not found" } });
+  });
+
+  it("should send device the timestamp of the device latest reading", async () => {
+    // we first create a device reading
+    await supertest(app)
+      .post("/v1/devices")
+      .send(testData)
+      .set("Accept", "application/json");
+
+    // testing scenario
+    const res = await supertest(app)
+      .get(`/v1/devices/${testData.id}/latest`)
+      .set("Accept", "application/json");
+
+    expect(res.headers["content-type"]).toMatch(/json/);
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({ latest_timestamp: "2021-09-29T16:09:15+01:00" });
   });
 });

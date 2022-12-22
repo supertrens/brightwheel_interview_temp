@@ -1,4 +1,5 @@
 import { validationResult } from "express-validator";
+import { getLatestReading } from "../utils/helpers";
 import { findByID, findOneAndUpdate } from "../utils/db";
 
 export const postDevice = (req, res, next) => {
@@ -19,8 +20,38 @@ export const postDevice = (req, res, next) => {
 export const getDevice = (req, res, next) => {
   try {
     const device = findByID(req.params.deviceId);
+
+    if (!device) {
+      return res.status(404).json({
+        data: {
+          message: "Device not found",
+        },
+      });
+    }
+
     res.json({ data: device });
   } catch (error) {
+    next(error);
+  }
+};
+
+export const getDeviceLatestReading = (req, res, next) => {
+  try {
+    const device = findByID(req.params.deviceId);
+
+    if (!device) {
+      return res.status(404).json({
+        data: {
+          message: "Device not found",
+        },
+      });
+    }
+
+    const latestReading = getLatestReading(device.readings);
+
+    res.json({ latest_timestamp: latestReading.timestamp });
+  } catch (error) {
+    console.log(error);
     next(error);
   }
 };
