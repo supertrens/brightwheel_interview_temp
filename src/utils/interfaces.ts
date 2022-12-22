@@ -1,5 +1,5 @@
 export interface Reading {
-  timestamp: Date;
+  timestamp: string;
   count: number;
 }
 
