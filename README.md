@@ -3,14 +3,28 @@
 A simple express web API on Node 18.x writing in TypeScript that receives and
 processes device readings.
 
-## Prerequisites
+## System Requirements
 
-- nvm/Node.js
-  - <a href="https://github.com/nvm-sh/nvm" target="_blank">Install nvm</a>
+- node `16 || 18`
+- npm v8.16.0 or greater
+
+All of these must be available in your `PATH`. To verify things are set up
+properly, you can run this:
+
+```shell
+node --version
+npm --version
+```
+
+If they are not installed on your system, you can :
+
+- <a href="https://github.com/nvm-sh/nvm" target="_blank">Install nvm</a>
   - Then use nvm to install Node.js (Node 18.x, latest):
     ```shell
     nvm install --lts
     ```
+
+## Running the app
 
 To install required npm packages:
 
@@ -82,3 +96,4 @@ Improvement
   and the cumulative read value in-memory on `POST /devices` . Like this we
   would always have those values pre-compute for all the subsequent request
   where we can hit the always hit the cache.
+- Dockerize the application to facilitate onboarding
