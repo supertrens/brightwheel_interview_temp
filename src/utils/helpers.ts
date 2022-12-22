@@ -11,3 +11,12 @@ export const getLatestReading = (readings: Reading[]) => {
 
   return latestReading;
 };
+
+export const getCumulativeReadingCount = (readings: Reading[]): number => {
+  const sum = readings.reduce(
+    (accumulator, currentValue) => accumulator + currentValue.count,
+    0
+  );
+
+  return sum;
+};
