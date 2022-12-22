@@ -1,5 +1,5 @@
 import { validationResult } from "express-validator";
-import { findOneAndUpdate } from "../utils/db";
+import { findByID, findOneAndUpdate } from "../utils/db";
 
 export const postDevice = (req, res, next) => {
   try {
@@ -11,6 +11,15 @@ export const postDevice = (req, res, next) => {
 
     const deviceEntry = findOneAndUpdate(req.body);
     res.json({ data: deviceEntry });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getDevice = (req, res, next) => {
+  try {
+    const device = findByID(req.params.deviceId);
+    res.json({ data: device });
   } catch (error) {
     next(error);
   }

@@ -30,4 +30,8 @@ const findOneAndUpdate = (data: DeviceReading): DeviceReading => {
     : addNewDeviceEntry(data);
 };
 
-export { findOneAndUpdate };
+const findByID = (deviceId: string): DeviceReading => {
+  return deviceDB.get(deviceId);
+};
+
+export { findOneAndUpdate, findByID };
