@@ -116,3 +116,25 @@ Improvement
   would always have those values pre-compute for all the subsequent request
   where we can hit the always hit the cache.
 - Dockerize the application to facilitate smoother onboarding
+
+## Project Structure
+
+- `src/`
+
+  - `__tests__/` e2e test suites for all the endpoints
+  - `handlers/` the "service" handlers. The only place we interact with the db.
+    The controller can consume those handlers to respond to the requests.
+  - `utils\`
+    - `__tests__\` unit test for files in this module
+    - `db.ts` Our in memory DB implementation
+    - `helpers.ts` functions that help us fulfill the request
+    - `interface.ts` common interface
+    - `validation.ts` validation function
+  - `router.ts` The device router where we can find all allowed endpoints
+  - `server.ts` We init and configure the app in this file. This is where we add
+    the global middleware for logging / body parser etc...
+
+- We also have a couple of root files to configure toolings:
+  - `jest.config.js` for jest (testing)
+  - `tsconfig.json` for compiling/transpaling (TS to JS)
+  - `tslint.json` some linting rules to keep the codebase unify
