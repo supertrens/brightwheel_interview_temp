@@ -2,8 +2,14 @@
   "name": "brightwheel_interview_project",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
+    "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
+    "build": "tsc",
+    "lint": "tslint -c tslint.json -p tsconfig.json --fix",
+    "start:dev": "npm run build && nodemon --watch src -e ts",
+    "start:local": "npm run build && node .",
+    "start": "node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -11,10 +17,13 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
-    "morgan": "^1.10.0"
+    "express-validator": "^6.14.2",
+    "morgan": "^1.10.0",
+    "tslint": "^6.1.3"
   },
   "devDependencies": {
     "@types/express": "^4.17.15",
-    "@types/morgan": "^1.9.3"
+    "@types/morgan": "^1.9.3",
+    "nodemon": "^2.0.20"
   }
 }
