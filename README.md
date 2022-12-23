@@ -59,6 +59,7 @@ npm test
 ```
 
 ### Brightwheel Interview API endpoints
+`base_url http://localhost:3000/v1`
 
 - Devices
 
@@ -114,7 +115,8 @@ Improvement
   strategies write-through with a read-through cache to set the latest reading
   and the cumulative read value in-memory on `POST /devices` . Like this we
   would always have those values pre-compute for all the subsequent request
-  where we can hit the always hit the cache.
+  where always hit the cache.
+- Set an in memory db (example: redis) that will write to a persistent db such as postgres
 - Dockerize the application to facilitate smoother onboarding
 
 ## Project Structure
